@@ -16,10 +16,10 @@ abstract class ArticleDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract int insertArticle(ArticleRoomData user);
+    abstract /*int*/ void insertArticle(ArticleRoomData user);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract int[] insertArticles(List<ArticleRoomData> user);
+    abstract /*int[]*/ void insertArticles(List<ArticleRoomData> user);
 
     // Update ищет в бд запись по ключу. Если не найдет, то ничего не произойдет.
     // Если найдет, то обновит все поля, а не только те, которые мы заполнили в Entity объекте.
