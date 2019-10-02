@@ -7,8 +7,10 @@ import com.geekbrains.lesson6.data.db.AppDatabase;
 import com.geekbrains.lesson6.data.db.DbProvider;
 import com.geekbrains.lesson6.data.db.RealmDbImpl;
 import com.geekbrains.lesson6.data.db.RoomDbImpl;
+import com.geekbrains.lesson6.data.db.SugarDbImpl;
 import com.geekbrains.lesson6.data.entity.ArticleRealmData;
 import com.geekbrains.lesson6.data.entity.ArticleRoomData;
+import com.geekbrains.lesson6.data.entity.ArticleSugarData;
 import com.geekbrains.lesson6.data.network.Api;
 import com.geekbrains.lesson6.data.network.RetrofitInit;
 import com.geekbrains.lesson6.data.repository.ArticleRepositoryImpl;
@@ -45,7 +47,8 @@ public class ClearActivity extends AppCompatActivity {
         Api api = RetrofitInit.newApiInstance();
         DbProvider<ArticleRealmData, List<Article>> dbRealm = new RealmDbImpl();
         DbProvider<ArticleRoomData, List<Article>> dbRoom = new RoomDbImpl(AppDatabase.getInstance(this));
-        ArticleRepository repository = new ArticleRepositoryImpl(api, dbRealm, dbRoom);
+        DbProvider<ArticleSugarData, List<Article>> dbSugar = new SugarDbImpl();
+        ArticleRepository repository = new ArticleRepositoryImpl(api, dbRealm, dbRoom, dbSugar);
         ArticleInteractor interactor = new ArticleInteractor(repository);
 
         viewModel = ViewModelProviders.of(this, new ClearViewModelFactory(interactor)).get(ClearViewModel.class);
