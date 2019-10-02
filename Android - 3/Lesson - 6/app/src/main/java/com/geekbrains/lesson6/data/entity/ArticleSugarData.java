@@ -1,14 +1,106 @@
-package ru.geekbrains.android3.android3_dz6.DataModel;
+package com.geekbrains.lesson6.data.entity;
 
+import com.geekbrains.lesson6.domain.model.Article;
 import com.orm.SugarRecord;
-public class SugarModel extends SugarRecord{
-    private String login;
-    private String userId;
-    private String avatarUrl;
-    public SugarModel(){}
-    public SugarModel(String login, String userId, String avatarUrl){
-        this.login = login;
-        this.userId = userId;
-        this.avatarUrl = avatarUrl;
+
+public class ArticleSugarData extends SugarRecord {
+
+    private String author;
+    private String title;
+    private String description;
+    private String url;
+    private String urlToImage;
+    private String publishedAt;
+    private String content;
+
+    public ArticleSugarData() {
+    }
+
+    public ArticleSugarData(String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
+
+    public static Article convertToEntity(ArticleSugarData item) {
+        return new Article(
+                item.author,
+                item.title,
+                item.description,
+                item.url,
+                item.urlToImage,
+                item.publishedAt,
+                item.content);
+    }
+
+    public static ArticleSugarData convertToSugarData(ArticleData item) {
+        return new ArticleSugarData(
+                item.author,
+                item.title,
+                item.description,
+                item.url,
+                item.urlToImage,
+                item.publishedAt,
+                item.content);
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
