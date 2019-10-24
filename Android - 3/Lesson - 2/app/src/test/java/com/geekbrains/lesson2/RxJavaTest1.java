@@ -36,9 +36,9 @@ public class RxJavaTest1 {
                 for (Integer i : numbers) {
                     if (!emitter.isDisposed()) {
                         emitter.onNext(i);
-                        if (i.equals(numbers[numbers.length - 1])) emitter.onComplete();
                     }
                 }
+                emitter.onComplete();
             }
         })
                 .subscribe(new Consumer<Integer>() {
@@ -98,14 +98,10 @@ public class RxJavaTest1 {
     //defer принимает функцию, которая возвращает Observable и будет выполнена для каждого нового подписчика.
     //решает проблему just
     @Test
-    public void testDefer() {
+    public void testDefer() throws InterruptedException {
         Observable<Long> time = Observable.defer(() -> Observable.just(System.currentTimeMillis()));
         time.subscribe(System.out::println);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(1000);
         time.subscribe(System.out::println);
     }
 

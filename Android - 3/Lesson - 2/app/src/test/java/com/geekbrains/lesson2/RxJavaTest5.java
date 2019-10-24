@@ -72,14 +72,17 @@ public class RxJavaTest5 {
 
     // Используется для переключения потока
     @Test
-    public void testObserveOn() {
+    public void testObserveOn() throws InterruptedException {
         Observable.just("A", "B", "C", "D", "E", "F")
+                .subscribeOn(Schedulers.single())
                 .doOnNext(i -> System.out.println("Emitting " + i + " on thread " + Thread.currentThread().getName()))
                 .observeOn(Schedulers.computation())
                 .doOnNext(i -> System.out.println("Emitting " + i + " on thread " + Thread.currentThread().getName()))
                 .observeOn(Schedulers.io())
                 .doOnNext(i -> System.out.println("Emitting " + i + " on thread " + Thread.currentThread().getName()))
                 .subscribe();
+
+        Thread.sleep(5000);
     }
 
     // Нужно помнить что subscribeOn при меняется только один раз. Т.е. если вы его вызовите хоть 10 раз
