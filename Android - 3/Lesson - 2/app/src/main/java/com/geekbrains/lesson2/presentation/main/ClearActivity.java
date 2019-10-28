@@ -13,16 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ClearActivity extends AppCompatActivity {
 
     private ArticleAdapter adapter;
     private ClearViewModel viewModel;
 
+    @BindView(R.id.rv_articles)
+    RecyclerView rv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
+        ButterKnife.bind(this);
 
         initViewModel();
         initRecycleView();
@@ -44,7 +50,6 @@ public class ClearActivity extends AppCompatActivity {
     private void initRecycleView() {
         adapter = new ArticleAdapter();
 
-        RecyclerView rv = findViewById(R.id.rv_articles);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }

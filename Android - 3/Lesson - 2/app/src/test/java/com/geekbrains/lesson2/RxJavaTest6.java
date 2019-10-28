@@ -35,10 +35,10 @@ public class RxJavaTest6 {
     // Итог: кто первый начнет испускать данные того и тапки, другие будут игнорироваться.
     @Test
     public void testAmb() throws InterruptedException {
-        Observable<Integer> observable1 = Observable.timer(2, TimeUnit.SECONDS)
+        Observable<Integer> observable1 = Observable.timer(1, TimeUnit.SECONDS)
                 .flatMap((Function<Long, ObservableSource<Integer>>) aLong -> Observable.just(10, 20, 30, 40, 50));
 
-        Observable<Integer> observable2 = Observable.timer(1, TimeUnit.SECONDS)
+        Observable<Integer> observable2 = Observable.timer(2, TimeUnit.SECONDS)
                 .flatMap((Function<Long, ObservableSource<Integer>>) aLong -> Observable.just(100, 200, 300, 400, 500));
 
         Observable.ambArray(observable1, observable2)
@@ -56,7 +56,7 @@ public class RxJavaTest6 {
 
     // для проверки запускаем несколько раз
     @Test
-    public void testDefaultInEmpty() {
+    public void testDefaultIfEmpty() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) {
