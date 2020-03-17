@@ -1,6 +1,5 @@
 package ru.geekbrains.lesson9;
 
-
 import ru.geekbrains.lesson9.data.models.RepsModel;
 import ru.geekbrains.lesson9.data.rest.NetApiClientInterface;
 import ru.geekbrains.lesson9.presenter.RepsPresenter;
@@ -23,7 +22,6 @@ import io.reactivex.Single;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class RepoPresenterTest {

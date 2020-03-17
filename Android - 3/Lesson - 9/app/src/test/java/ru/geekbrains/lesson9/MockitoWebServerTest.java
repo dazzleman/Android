@@ -1,33 +1,27 @@
 package ru.geekbrains.lesson9;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.facebook.stetho.okhttp3.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jetbrains.annotations.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.mockito.junit.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
-import androidx.test.ext.junit.runners.*;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import io.reactivex.functions.*;
+import okhttp3.*;
+import okhttp3.logging.*;
 import okhttp3.mockwebserver.Dispatcher;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import ru.geekbrains.lesson9.data.Endpoints;
-import ru.geekbrains.lesson9.data.models.GithubUser;
-import ru.geekbrains.lesson9.data.models.RepsModel;
+import okhttp3.mockwebserver.*;
+import retrofit2.*;
+import retrofit2.adapter.rxjava2.*;
+import retrofit2.converter.gson.*;
+import ru.geekbrains.lesson9.data.*;
+import ru.geekbrains.lesson9.data.models.*;
 
-@RunWith(AndroidJUnit4.class)
-public class NetApiTest {
+public class MockitoWebServerTest {
     private static MockWebServer mockWebServer;
     private static Endpoints endPointsMocked;
 
@@ -47,11 +41,7 @@ public class NetApiTest {
     }
 
     private static OkHttpClient getClient() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         return new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
     }

@@ -35,4 +35,13 @@ public class GithubUser {
         this.login = login;
         this.avatar = avatar;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GithubUser that = (GithubUser) o;
+        return login.equals(that.login) &&
+                avatar.equals(that.avatar);
+    }
 }

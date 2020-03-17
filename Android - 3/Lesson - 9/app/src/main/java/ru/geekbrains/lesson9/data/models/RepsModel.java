@@ -3,6 +3,8 @@ package ru.geekbrains.lesson9.data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.*;
+
 public class RepsModel {
     @SerializedName("name")
     @Expose
@@ -47,5 +49,15 @@ public class RepsModel {
         this.name = name;
         this.fullName = fullName;
         this.owner = owner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RepsModel repsModel = (RepsModel) o;
+        return name.equals(repsModel.name) &&
+                fullName.equals(repsModel.fullName) &&
+                owner.equals(repsModel.owner);
     }
 }
