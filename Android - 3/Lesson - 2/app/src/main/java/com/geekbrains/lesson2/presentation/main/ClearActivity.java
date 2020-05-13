@@ -8,7 +8,6 @@ import com.geekbrains.lesson2.data.network.RetrofitInit;
 import com.geekbrains.lesson2.data.repository.ArticleRepositoryImpl;
 import com.geekbrains.lesson2.domain.repository.ArticleRepository;
 import com.geekbrains.lesson2.domain.usecase.ArticleInteractor;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;

@@ -3,11 +3,16 @@ package com.geekbrains.lesson2;
 import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.BooleanSupplier;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 // обработка ошибок
 public class RxJavaTest8 {
@@ -153,7 +158,7 @@ public class RxJavaTest8 {
                                 return Long.parseLong(s) + aLong;
                             }
                         })
-                .retry() // чтобы не уйти в бесконечность можем явно указать кол-во попыток
+                .retry(3) // чтобы не уйти в бесконечность можем явно указать кол-во попыток
                 .subscribe(new DisposableObserver<Long>() {
                     @Override
                     public void onNext(Long aLong) {
@@ -248,5 +253,57 @@ public class RxJavaTest8 {
                 });
 
         Thread.sleep(15000);
+    }
+
+    @Test
+    public void testRepeatUntil() throws InterruptedException {
+        getValueForRepeat()
+                .delay(2, TimeUnit.SECONDS)
+                .onErrorResumeNext(Single.just(false))
+                .repeatUntil(new BooleanSupplier() {
+                    @Override
+                    public boolean getAsBoolean() throws Exception {
+                        return isTrue || count == 5;
+                    }
+                })
+                .doOnSubscribe(subscription -> {
+                    System.out.println("doOnSubscribe");
+                })
+                .subscribe(new DisposableSubscriber<Boolean>() {
+                    @Override
+                    public void onNext(Boolean aLong) {
+                        System.out.println("onNext: " + aLong);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println("onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        System.out.println("onComplete:");
+                    }
+                });
+
+        Thread.sleep(15000);
+    }
+
+    private int count = 0;
+    private boolean isTrue = false;
+    private Single<Boolean> getValueForRepeat(){
+        return Single.just(false)
+                .map(new Function<Boolean, Boolean>() {
+                    @Override
+                    public Boolean apply(Boolean aBoolean) throws Exception {
+                        count++;
+                        if(count == 3) throw new Exception();
+                        if(count < 8) return false;
+                        else {
+                            isTrue = true;
+                            return true;
+                        }
+                    }
+                });
     }
 }

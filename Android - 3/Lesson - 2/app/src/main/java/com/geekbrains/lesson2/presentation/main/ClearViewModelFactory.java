@@ -1,6 +1,5 @@
 package com.geekbrains.lesson2.presentation.main;
 
-
 import com.geekbrains.lesson2.domain.usecase.ArticleInteractor;
 
 import androidx.annotation.NonNull;

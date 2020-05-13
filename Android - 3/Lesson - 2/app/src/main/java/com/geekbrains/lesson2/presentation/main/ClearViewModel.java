@@ -1,6 +1,5 @@
 package com.geekbrains.lesson2.presentation.main;
 
-
 import com.geekbrains.lesson2.domain.model.Article;
 import com.geekbrains.lesson2.domain.usecase.ArticleInteractor;
 
@@ -29,7 +28,7 @@ public class ClearViewModel extends ViewModel implements LifecycleObserver {
         compositeDisposable.add(
                 interactor.getArticles()
                         .subscribe(result -> articleLiveData.postValue(result),
-                                throwable -> System.out.println(throwable)
+                                throwable -> throwable.printStackTrace()
                         ));
     }
 
