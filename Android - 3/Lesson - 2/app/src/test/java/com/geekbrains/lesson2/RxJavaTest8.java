@@ -259,11 +259,10 @@ public class RxJavaTest8 {
     public void testRepeatUntil() throws InterruptedException {
         getValueForRepeat()
                 .delay(2, TimeUnit.SECONDS)
-                .onErrorResumeNext(Single.just(false))
                 .repeatUntil(new BooleanSupplier() {
                     @Override
                     public boolean getAsBoolean() throws Exception {
-                        return isTrue || count == 5;
+                        return isTrue || count == 10;
                     }
                 })
                 .doOnSubscribe(subscription -> {
@@ -304,6 +303,10 @@ public class RxJavaTest8 {
                             return true;
                         }
                     }
+                })
+                .onErrorReturn(throwable -> {
+                    count++;
+                    return false;
                 });
     }
 }
